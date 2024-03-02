@@ -1574,6 +1574,7 @@ export default class Wallet {
             );
         }
 
+        console.log(CONFIG.NETWORK_ID);
         const connection = nearApiJs.Connection.fromConfig({
             networkId: CONFIG.NETWORK_ID,
             provider: this.connection.provider,
