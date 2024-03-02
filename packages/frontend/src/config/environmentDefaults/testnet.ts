@@ -2,9 +2,12 @@ import * as nearApiJs from 'near-api-js';
 import { parseNearAmount } from 'near-api-js/lib/utils/format';
 
 export default {
-    ACCOUNT_HELPER_URL: 'https://testnet-api.kitwallet.app',
-    ACCOUNT_KITWALLET_HELPER_URL: 'https://testnet-api.kitwallet.app',
-    ACCOUNT_ID_SUFFIX: 'testnet',
+    // ACCOUNT_HELPER_URL: 'https://testnet-api.kitwallet.app',
+    // ACCOUNT_KITWALLET_HELPER_URL: 'https://testnet-api.kitwallet.app',
+    // ACCOUNT_ID_SUFFIX: 'testnet',
+    ACCOUNT_HELPER_URL: 'https://sw4-account-creator-g55a3i3lmq-ey.a.run.app', // research
+    ACCOUNT_KITWALLET_HELPER_URL: 'https://sw4-account-creator-g55a3i3lmq-ey.a.run.app', // research
+    ACCOUNT_ID_SUFFIX: 'statelessnet', // statelessnet
     ACCESS_KEY_FUNDING_AMOUNT: nearApiJs.utils.format.parseNearAmount('0.25'),
     BROWSER_MIXPANEL_TOKEN: '778bd24eec7329cf885f0cecfc3d4f5d',
     DISABLE_CREATE_ACCOUNT: false,
@@ -39,7 +42,8 @@ export default {
     ],
     MULTISIG_MIN_AMOUNT: '4',
     NETWORK_ID: 'default',
-    NODE_URL: 'https://rpc.testnet.near.org',
+    // NODE_URL: 'https://rpc.testnet.near.org',
+    NODE_URL: 'https://rpc.statelessnet.near.org',
     NODE_ARCHIVAL_URL: 'https://archival-rpc.testnet.near.org',
     REACT_APP_USE_TESTINGLOCKUP: false,
     SENTRY_DSN:

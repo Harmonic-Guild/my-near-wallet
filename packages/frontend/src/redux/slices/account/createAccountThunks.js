@@ -158,10 +158,18 @@ export const createNewAccount = createAsyncThunk(
                 recaptchaCode: recaptchaToken,
             });
         } else {
-            await sendJson('POST', CONTRACT_CREATE_ACCOUNT_URL, {
-                newAccountId: accountId,
-                newAccountPublicKey: publicKey.toString(),
-            });
+            if (CONFIG.IS_STATELESSNET_ENABLED) {
+                console.log('using stateless net');
+                await sendJson('POST', CONTRACT_CREATE_ACCOUNT_URL + '/create', {
+                    account_id: accountId,
+                    public_key: publicKey.toString(),
+                });
+            } else {
+                await sendJson('POST', CONTRACT_CREATE_ACCOUNT_URL, {
+                    newAccountId: accountId,
+                    newAccountPublicKey: publicKey.toString(),
+                });
+            }
         }
 
         // NOTE: wallet.saveAccount is being called multiple times here. But some of them are called

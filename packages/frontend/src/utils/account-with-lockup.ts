@@ -6,7 +6,6 @@ import { parseNearAmount } from 'near-api-js/lib/utils/format';
 import { BinaryReader } from 'near-api-js/lib/utils/serialize';
 
 import { WalletError } from './walletError';
-import { getValidatorIdsFromRpc } from './staking';
 import CONFIG from '../config';
 import StakingFarmContracts from '../services/StakingFarmContracts';
 
@@ -238,28 +237,81 @@ async function getAccountBalance(limitedAccountData = false) {
     }
 
     // const stakingDeposits = await listStakingDeposits(this.accountId);
-    const stakingDeposits = await getValidatorIdsFromRpc();
+    const stakingDeposits = [
+        '01node.pool.f863973.m0',
+        'aurora.pool.f863973.m0',
+        'bee1stake.pool.f863973.m0',
+        'bisontrails.pool.f863973.m0',
+        'blockngine.pool.f863973.m0',
+        'casualpooltest.pool.f863973.m0',
+        'colossus.pool.f863973.m0',
+        'derori_validator_pool.pool.f863973.m0',
+        'dnahovsk_test_pool.pool.f863973.m0',
+        'domanodes.factory.colorpalette.testnet',
+        'everstake.pool.f863973.m0',
+        'fastvalidator.pool.f863973.m0',
+        'fastvalidator2.pool.f863973.m0',
+        'forked.pool.f863973.m0',
+        'foundryusa.pool.f863973.m0',
+        'kiln.pool.f863973.m0',
+        'lavenderfive.pool.f863973.m0',
+        'lobster.pool.f863973.m0',
+        'lunanova2.pool.f863973.m0',
+        'ni.pool.f863973.m0',
+        'pathrocknetwork.pool.f863973.m0',
+        'phet90testnet.pool.f863973.m0',
+        'stakely_v2.pool.f863973.m0',
+        'stakesstone.pool.f863973.m0',
+        'stingray.pool.f863973.m0',
+        'wolfedge-capital-testnet.pool.f863973.m0',
+        'legends.pool.f863973.m0',
+        'chorusone.pool.f863973.m0',
+        'chorus-one.pool.f863973.m0',
+        'nodeasy.pool.f863973.m0',
+        'infiniteloop.pool.f863973.m0',
+        'inc4-net.pool.f863973.m0',
+        'pathrock-stake.pool.f863973.m0',
+        'smcvalidator.pool.f863973.m0',
+        'leadnode.pool.f863973.m0',
+        'do0k13.pool.f863973.m0',
+        'cymac.pool.f863973.m0',
+        'machfund.pool.f863973.m0',
+        'rossi-validator.pool.f863973.m0',
+        'dsrvlabs.pool.f863973.m0',
+        'zpool.pool.f863973.m0',
+        'figment.pool.f863973.m0',
+        'okexpool.pool.f863973.m0',
+        'gp-validator-testnet.pool.f863973.m0',
+        'hotones.pool.f863973.m0',
+        'pennyvalidators.pool.f863973.m0',
+        'p2p-org.pool.f863973.m0',
+        'trex01022024.pool.f863973.m0',
+        'gdtesting.pool.f863973.m0',
+        'sssuryansh.pool.f863973.m0',
+        'dialogue.pool.f863973.m0',
+        'squatch.pool.f863973.m0',
+        'dehashed.pool.f863973.m0',
+        'sweden.pool.f863973.m0',
+        'blueprint.pool.f863973.m0',
+        'fresh_lockup.pool.f863973.m0',
+        'ino.pool.f863973.m0',
+        'nearone16gperf.pool.f863973.m0',
+        'nearone24gperf.pool.f863973.m0',
+        'nearpy.pool.f863973.m0',
+        'oltom.pool.f863973.m0',
+        'stake2grow.pool.f863973.m0',
+        'x50capital.pool.f863973.m0',
+    ];
     let stakedBalanceMainAccount = new BN(0);
     await Promise.all(
         stakingDeposits.map(async (validator_id) => {
             const validatorBalance = new BN(
-                await this.wrappedAccount
-                    .viewFunction(validator_id, 'get_account_total_balance', {
-                        account_id: this.accountId,
-                    })
-                    .catch((err) => {
-                        if (
-                            // Means the validators  don't have contract deployed, or don't support staking
-                            err.message.includes('CompilationError(CodeDoesNotExist') ||
-                            err.message.includes('MethodResolveError(MethodNotFound)')
-                        ) {
-                            return '0';
-                        } else {
-                            throw err;
-                        }
-                    })
+                await this.wrappedAccount.viewFunction(
+                    validator_id,
+                    'get_account_total_balance',
+                    { account_id: this.accountId }
+                )
             );
-
             stakedBalanceMainAccount = stakedBalanceMainAccount.add(validatorBalance);
         })
     );

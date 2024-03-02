@@ -91,4 +91,6 @@ export default {
     REF_FINANCE_CONTRACT: process.env.REF_FINANCE_CONTRACT,
     HAPI_PROTOCOL_ADDRESS: process.env.HAPI_PROTOCOL_ADDRESS,
     CALIMERO_URL: process.env.CALIMERO_URL,
+    IS_STATELESSNET_ENABLED:
+        parseBooleanFromShell(process.env.IS_STATELESSNET_ENABLED) || false,
 };
